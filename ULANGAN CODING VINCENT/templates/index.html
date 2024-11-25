@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4 text-center animate__animated animate__fadeIn">Daftar Menu</h1>
+
+<!-- Tombol Tambah Data -->
+<div class="d-flex justify-content-end mb-4">
+    <a href="{{ url_for('add_menu') }}" class="btn btn-primary animate__animated animate__fadeIn">
+        Tambah Menu
+    </a>
+</div>
+
+<!-- Daftar Menu -->
+<div class="row">
+    {% for menu in menus %}
+    <div class="col-md-4 mb-4">
+        <div class="card animate__animated animate__fadeInUp" style="animation-delay: {{ loop.index * 0.2 }}s;">
+            <div class="card-body">
+                <h5 class="card-title">{{ menu.name }}</h5>
+                <p class="card-text">{{ menu.description }}</p>
+                <p class="card-text"><strong>Harga:</strong> Rp {{ menu.price }}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('edit_menu', menu_id=menu.id) }}" class="btn btn-warning">Edit</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="confirmDelete({{ menu.id }})">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus menu ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <form method="post" id="deleteForm">
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(menuId) {
+        const form = document.getElementById('deleteForm');
+        form.action = `/delete/${menuId}`;
+    }
+</script>
+{% endblock %}

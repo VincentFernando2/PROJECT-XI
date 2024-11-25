@@ -1,0 +1,29 @@
+/* Tombol hover */
+.btn-primary:hover {
+    background-color: #0056b3;
+    color: #fff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Navbar efek hover */
+.navbar-nav .nav-item .nav-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Efek fade-in untuk kontainer */
+.container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
